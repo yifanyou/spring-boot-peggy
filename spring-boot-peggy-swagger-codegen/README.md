@@ -1,5 +1,8 @@
 ## swagger code 使用方案一
 
+### 版本
+swagger 2.0
+
 ### 生成代码
 首先，根据swagger规范定义接口文件。
 项目中swagger定义在src/main/swagger-spec目录下，包含
