@@ -1,8 +1,8 @@
 # spring-boot-peggy
 my spring boot sample
 
-Project name is peggy, because this year is the year of pig.
+Project is called Peggy, because this year is the year of pig in China.
 
-I will commit some samples of spring boot that i have used in my work. 
+Will commit some samples of spring boot that i use and have used in work. 
 
-I think it will make me remember these develop knowledges longer.
+Hope it will make me remember these develop knowledges longer.
