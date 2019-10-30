@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.yifanyou.peggy</groupId>
+    <artifactId>spring-boot-peggy-swagger-codegen</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <swagger-core-version>1.5.18</swagger-core-version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger-core-version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--
+                用于将index.yaml转化成api.yaml, index.yaml存在swagger规范定义，转化为纯json定义
+            -->
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <version>2.0</version>
+                <configuration>
+                    <properties>
+                        <inFile>${project.basedir}/src/main/swagger-spec/all/index.yaml</inFile>
+                        <outFile>${project.basedir}/src/main/swagger-spec/api</outFile>
+                    </properties>
+                    <source>
+                        import io.swagger.parser.Swagger20Parser
+                        import io.swagger.parser.SwaggerResolver
+                        import io.swagger.util.Json
+                        import io.swagger.util.Yaml
+                        import org.apache.commons.io.FileUtils
+
+                        def parser = new Swagger20Parser()
+                        def path = properties['inFile']
+                        def swagger = parser.read(path, null)
+                        def resolver = new SwaggerResolver(swagger, null, path)
+                        resolver.resolve()
+                        def out = properties['outFile']
+                        Json.pretty().writeValue(new File(out + '.json'), swagger)
+                        Yaml.pretty().writeValue(new File(out + '.yaml'), swagger)
+                    </source>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>io.swagger</groupId>
+                        <artifactId>swagger-parser</artifactId>
+                        <version>1.0.25</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <!-- 根据index.yaml或者api.yaml文件生成代码-->
+            <plugin>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>2.4.9</version>
+                <configuration>
+                    <!-- specify the swagger yaml -->
+                    <inputSpec>${project.basedir}/src/main/swagger-spec/all/index.yaml</inputSpec>
+                    <output>${project.basedir}/src/main/swagger-codegen</output>
+                    <!-- target to generate -->
+                    <language>spring</language>
+                    <!-- pass any necessary config options -->
+                    <modelNamePrefix></modelNamePrefix>
+                    <modelNameSuffix></modelNameSuffix>
+                    <modelPackage>com.yifanyou.peggy.swaggercodegen.model</modelPackage>
+                    <templateDirectory>src/main/swagger-template</templateDirectory>
+                    <configOptions>
+                        <sourceFolder>src/main/java</sourceFolder>
+                        <apiPackage>com.yifanyou.peggy.swaggercodegen.api</apiPackage>
+                        <basePackage>com.yifanyou.peggy.swaggercodegen</basePackage>
+                        <interfaceOnly>true</interfaceOnly>
+                        <java8>true</java8>
+                        <jdk8>true</jdk8>
+                        <dateLibrary>java8</dateLibrary>
+                        <additional-properties>
+                            jackson=true
+                        </additional-properties>
+                        <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                    </configOptions>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
+            <!-- 自定义编译路径 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.12</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/swagger-codegen/src/main/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

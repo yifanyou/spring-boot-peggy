@@ -1,0 +1,30 @@
+swagger: "2.0"
+info:
+  title: Peggy API
+  description: Peggy API 1.0
+  version: "1.0.0"
+
+schemes:
+  - http
+  - https
+host: 127.0.0.1:8080
+basePath: "/api"
+
+tags:
+  - name: User
+    description: 用户服务
+produces:
+  - application/json
+securityDefinitions:
+  Access-Token:
+    type: apiKey
+    name: access-token
+    in: header
+security:
+  - Access-Token: []
+paths:
+  # 用户机构资源
+  /user/org:
+    $ref: '../apis/user.api.yaml#/paths/user-org'
+  /user/department-company:
+    $ref: '../apis/user.api.yaml#/paths/user-department-company'

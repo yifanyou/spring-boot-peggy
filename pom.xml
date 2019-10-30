@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>spring-boot-peggy-test</module>
+        <module>spring-boot-peggy-swagger-codegen</module>
     </modules>
 
     <dependencies>
@@ -17,6 +18,6 @@
     </dependencies>
 
     <build>
-        
+
     </build>
 </project>

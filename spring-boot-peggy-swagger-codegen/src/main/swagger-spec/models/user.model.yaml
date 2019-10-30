@@ -1,0 +1,89 @@
+swagger: "2.0"
+definitions:
+  UserOrgsResponse:
+    description: "用户所属部门"
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 1
+      message:
+        type: string
+        default: "获取成功"
+      result:
+        description: "所属部门结果"
+        type: object
+        title: UserOrgsResult
+        properties:
+          orgs:
+            description: "预支单核销发票明细"
+            type: array
+            items:
+              $ref: '../models/user.model.yaml#/definitions/OrgDTO'
+  OrgDTO:
+    description: "组织机构"
+    type: object
+    properties:
+      orgId:
+        description: "组织id"
+        type: integer
+        format: int64
+      orgCode:
+        description: "组织编码"
+        type: string
+      orgName:
+        description: "组织名称"
+        type: string
+  UserDepartmentResponse:
+    description: "用户所属部门,包含了公司信息,扁平化"
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        default: 1
+      message:
+        type: string
+        default: "获取成功"
+      result:
+        description: "所属公司部门结果"
+        type: object
+        title: UserDepartmentResult
+        properties:
+          orgs:
+            description: "公司部门信息明细"
+            type: array
+            items:
+              $ref: '../models/user.model.yaml#/definitions/DepartmentDTO'
+  DepartmentDTO:
+    description: "部门信息"
+    type: object
+    properties:
+      companyId:
+        description: "公司id"
+        type: integer
+        format: int64
+      companyCode:
+        description: "公司编码"
+        type: string
+      companyName:
+        description: "公司名称"
+        type: string
+      companyTaxNo:
+        description: "公司税号"
+        type: string
+      companyOrgId:
+        description: "公司组织ID"
+        type: integer
+        format: int64
+      departmentOrgId:
+        description: "部门组织ID"
+        type: integer
+        format: int64
+      departmentName:
+        description: "部门名字"
+        type: string
+      departmentCode:
+        description: "部门编码"
+        type: string

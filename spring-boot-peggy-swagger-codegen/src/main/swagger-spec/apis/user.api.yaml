@@ -1,0 +1,27 @@
+swagger: 2.0
+info:
+  version: "1.0.0"
+  title: "用户信息资源"
+paths:
+  user-org:
+    get:
+      tags:
+        - User
+      summary: "查询用户所属部门信息"
+      operationId: getUserOrgs
+      responses:
+        '200':
+          description: 查询结果
+          schema:
+            $ref: '../models/user.model.yaml#/definitions/UserOrgsResponse'
+  user-department-company:
+    get:
+      tags:
+        - User
+      summary: "查询用户所属部门信息,包含公司信息"
+      operationId: getUserDepartmentsWithCompany
+      responses:
+        '200':
+          description: 查询结果
+          schema:
+            $ref: '../models/user.model.yaml#/definitions/UserDepartmentResponse'
