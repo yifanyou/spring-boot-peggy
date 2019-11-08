@@ -1,0 +1,15 @@
+/.idea/*.xml
+/.idea/dictionaries/*.xml
+/.idea/inspectionProfiles/*.xml
+/spring-boot-peggy-swagger-codegen/src/main/swagger-codegen/*.swagger-codegen-ignore
+/spring-boot-peggy-swagger-codegen/src/main/swagger-codegen/.swagger-codegen/*
+/spring-boot-peggy-swagger-codegen/src/main/swagger-codegen/*.md
+/spring-boot-peggy-swagger-codegen/src/main/swagger-codegen/*.xml
+/spring-boot-peggy-swagger-codegen/src/main/swagger-codegen/src/main/java/com/yifanyou/peggy/swaggercodegen/api/*.java
+/spring-boot-peggy-swagger-codegen/src/main/swagger-codegen/src/main/java/com/yifanyou/peggy/swaggercodegen/model/*.java
+/spring-boot-peggy-swagger-codegen/src/main/swagger-spec/*.json
+/spring-boot-peggy-swagger-codegen/src/main/swagger-spec/*.yaml
+/spring-boot-peggy-test/target/classes/*.yml
+/spring-boot-peggy-test/target/classes/com/yifanyou/peggy/test/*.class
+/spring-boot-peggy-test/target/maven-status/maven-compiler-plugin/compile/default-compile/*.lst
+/*.iml
